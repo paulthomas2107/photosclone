@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+/photos.lock.db
+/photos.mv.db
+/photos.trace.db
