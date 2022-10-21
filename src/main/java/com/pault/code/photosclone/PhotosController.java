@@ -4,8 +4,11 @@ import lombok.Data;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
+import java.io.IOException;
 import java.util.*;
 
 @Data
@@ -14,7 +17,8 @@ import java.util.*;
 public class PhotosController {
 
     private Map<String, Photo> db = new HashMap<>() {{
-        put("0001", new Photo("0001", "hello.jpg"));
+        byte [] data = {0};
+        put("0001", new Photo("0001", "hello.jpg", data));
     }};
 
     @GetMapping("/")
@@ -35,7 +39,7 @@ public class PhotosController {
         return photo;
     }
 
-    @RequestMapping(value = "/photos/{id}",method=RequestMethod.DELETE)
+    @DeleteMapping(value = "/photos/{id}")
     public void delete(@PathVariable String id) {
         Photo photo = db.remove(id);
         log.info(photo.toString());
@@ -43,10 +47,15 @@ public class PhotosController {
     }
 
     @PostMapping("/photos")
-    public Photo create(@RequestBody Photo photo) {
+    public Photo create(@RequestPart("data") MultipartFile file) throws IOException {
+        Photo photo = new Photo();
         photo.setId(UUID.randomUUID().toString());
+        photo.setFileName(file.getOriginalFilename());
+        photo.setData(file.getBytes());
         db.put(photo.getId(), photo);
         return photo;
+
+
     }
 }
 
