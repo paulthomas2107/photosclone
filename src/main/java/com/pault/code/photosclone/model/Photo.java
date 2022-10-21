@@ -1,4 +1,4 @@
-package com.pault.code.photosclone;
+package com.pault.code.photosclone.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

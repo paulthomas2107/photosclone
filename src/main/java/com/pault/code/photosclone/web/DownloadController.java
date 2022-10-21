@@ -1,5 +1,7 @@
-package com.pault.code.photosclone;
+package com.pault.code.photosclone.web;
 
+import com.pault.code.photosclone.model.Photo;
+import com.pault.code.photosclone.service.PhotosService;
 import lombok.Data;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;

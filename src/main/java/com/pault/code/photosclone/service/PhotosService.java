@@ -1,5 +1,6 @@
-package com.pault.code.photosclone;
+package com.pault.code.photosclone.service;
 
+import com.pault.code.photosclone.model.Photo;
 import lombok.Data;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
