@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -12,9 +14,11 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @NoArgsConstructor
 @Log
+@Table("PHOTOS")
 public class Photo {
 
-    private String id;
+    @Id
+    private Integer id;
     @NotEmpty
     private String fileName;
     private String contentType;

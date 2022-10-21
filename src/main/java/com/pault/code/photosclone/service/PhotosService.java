@@ -1,6 +1,7 @@
 package com.pault.code.photosclone.service;
 
 import com.pault.code.photosclone.model.Photo;
+import com.pault.code.photosclone.repository.PhotosRepository;
 import lombok.Data;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -15,30 +16,26 @@ import java.util.UUID;
 @Service
 public class PhotosService {
 
-    private Map<String, Photo> db = new HashMap<>() {{
-        byte [] data = {0};
-        put("0001", new Photo("0001", "content", "hello.jpg", data));
-    }};
+    private final PhotosRepository photosRepository;
 
-    public Collection<Photo> get() {
-        return db.values();
+    public Iterable<Photo> get() {
+        return photosRepository.findAll();
     }
 
-    public Photo get(String id) {
-        return db.get(id);
+    public Photo get(Integer id) {
+        return photosRepository.findById(id).orElse(null);
     }
 
-    public Photo remove(String id) {
-        return db.remove(id);
+    public void remove(Integer id) {
+        photosRepository.deleteById(id);
     }
 
     public Photo save(String fileName, String contentType, byte[] data) {
         Photo photo = new Photo();
         photo.setContentType(contentType);
-        photo.setId(UUID.randomUUID().toString());
         photo.setFileName(fileName);
         photo.setData(data);
-        db.put(photo.getId(), photo);
+        photosRepository.save(photo);
         return photo;
     }
 }
